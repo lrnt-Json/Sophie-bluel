@@ -49,22 +49,33 @@ table {
 /** end reset css**/
 
 :root {
-	--color-h1: #B1663C;
     --color-main: #1D6154;
-	--color-input: white;
+	--color-secondary: #B1663C;
+	--color-background-main: #FFFEF8;
+	--color-background-alt: white;
+	--color-background-hover: #ebf5f3;
+	--color-text-main: black;
+	--color-submit-hover: #0E2F28;
 }
 
 body {
-	max-width: 1140px;
-	margin:auto;
+	margin: 0;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: var(--color-background-main);
 }
+
+.headerAndMain {
+	max-width: 1140px;
+	margin:auto;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
+
 section {
 	margin: 50px 0
 }
@@ -75,14 +86,13 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: var(--color-h1);
+	color: var(--color-secondary);
 }
 
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -91,135 +101,125 @@ h2{
 	font-size: 30px;
 	color: var(--color-main);
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
 
 li:hover {
-	color: var(--color-h1);
-}
-#introduction {
-	display: flex;
-	align-items: center;
-}
-#introduction figure {
-	flex: 1
-}
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+	color: var(--color-secondary);
+	cursor: pointer;
 }
 
-#introduction article {
-	flex: 1
-}
-#introduction h2 {
-	margin-bottom: 1em;
+a {
+	color: var(--color-text-main);
+    text-decoration: none;
 }
 
-#introduction p {
-	margin-bottom: 0.5em;
-}
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+a:hover {
+	color: var(--color-secondary);
 }
 
-/*********** FILTER ***********/
-
-.container-filter {
-    display: flex;
-	justify-content: center;
-    align-items: center;
-	margin-bottom: 40px;
-    gap: 10px;
+nav img {
+	width: 20px;
+	height: auto;
 }
 
-.button-filter {
-    padding: 1px 15px;
-    height: 37px;
-    border-radius: 60px;
-    border: 1px solid var(--color-main);
-    background-color: white;
-	font-family: 'Syne';
-    font-size: 16px;
-    font-weight: bold;
-	color: var(--color-main);
-    cursor: pointer;
+nav a.active {
+  font-weight: 600;
 }
 
-.button-filter.active-filter {
-  background-color: var(--color-main);
-  color: white;
-}
-
-/*********** GALLERY ***********/
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-}
-
-.gallery img {
-	width: 100%;
-
-}
-#contact {
+/*********** LOGIN ***********/
+#login {
 	width: 50%;
-margin: auto;
+	height: calc(100vh - 192px);
+	margin: auto;
 }
-#contact > * {
-	text-align: center;
 
+#login > * {
+	text-align: center;
 }
-#contact h2{
+
+#login h2{
 	margin-bottom: 20px;
 }
-#contact form {
+
+#login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#login label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+
+#login textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+/*********** FORM ***********/
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
-	color: var(--color-input);
+	color: var(--color-background-alt);
 	background-color: var(--color-main);
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+input[type="submit"]:hover {
+	background-color: var(--color-submit-hover);
+	transform: scale(1.05);
+}
+
+.forget-password {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/*********** FOOTER ***********/
+
+footer {
+	width: 100%;
+	height: 60px;
+	background-color: var(--color-background-alt);
+	position: relative;
+	left: 0;
+}
+
+footer .footer-content {
+    max-width: 1140px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+}
+
+.footer-content li {
+	font-weight: 300;
+	font-size: 1em;
 }
 

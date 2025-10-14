@@ -7,20 +7,29 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
 <header>
+	<div class="edit-header">
+		<p>Mode édition</p>
+	</div>
+	<div class="header-content">
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+
 	<nav>
 		<ul>
 			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<li><a href="#contact">contact</a></li>
+			<li class="nav-login"><a href="./assets/login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+	</div>
 </header>
 <main>
 	<section id="introduction">
@@ -35,53 +44,11 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="gallery">
-			<figure>
-				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-				<figcaption>Abajour Tahina</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-				<figcaption>Appartement Paris V</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-				<figcaption>Restaurant Sushisen - Londres</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-				<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-				<figcaption>Structures Thermopolis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
-				<figcaption>Appartement Paris X</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
-				<figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
-				<figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
-				<figcaption>Appartement Paris XVIII</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
-				<figcaption>Bar “Lullaby” - Paris</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-				<figcaption>Hotel First Arte - New Delhi</figcaption>
-			</figure>
+		<div class="portfolio-title"><h2>Mes Projets</h2>
+		<div class="modifier"></div></div>
+		<div class="filters">
 		</div>
+		<div class="gallery"></div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
@@ -96,6 +63,42 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+<!-- Boîte modale pour modifier les images -->
+<div id="modal-edit" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+		<div class="gallery-edit">
+    		<h3>Gallery photo</h3>
+				<!-- Les images de la galerie seront insérées ici dynamiquement -->
+			<div class="gallery-images"></div>
+			<button class="add-image">Ajouter une photo</button>
+		</div>
+		<div class="gallery-add">
+			<button class="back-arrow" style="background:none; border:none; position:absolute; left:10px; top:10px; font-size:2em; cursor:pointer;">
+        		<i class="fa-solid fa-arrow-left"></i>
+    		</button>
+			<h3>Ajout photo</h3>
+			<form id="add-image-form">
+
+				<div class="image-upload">
+					<i class="fa-regular fa-image"></i>
+					<label for="image-url" class="image-url-button">+ Ajouter photo</label>
+					<input type="file" id="image-url" name="image-url"  accept="image/png, image/jpeg" required>
+					<span>jpg, png : 4mo max</span>
+				</div>
+				
+				<label for="image-title">Titre</label>
+				<input type="text" id="image-title" name="image-title" required>
+				
+				<label for="image-category">Catégorie</label>
+				<select name="image-category" id="image-category" required>
+				</select>
+				 
+				<button type="submit">Valider</button>
+			</form>
+		</div>
+  </div>
+</div>
 </main>
 
 <footer>
@@ -105,5 +108,9 @@
 		</ul>
 	</nav>
 </footer>
+
+
+
+<script src="./assets/script.js"></script>
 </body>
 </html>

@@ -76,7 +76,7 @@ body {
 	margin: 50px 0
 }
 section {
-	margin: 50px 0
+	margin: 100px 0
 }
 
 h1{
@@ -159,7 +159,7 @@ li a {
 .portfolio-title {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 }
 .portfolio-title button {
 	background-color: transparent;
@@ -195,10 +195,13 @@ li a {
 
 .gallery {
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.gallery figure {
+	width: 30%;
 }
 
 .gallery img {

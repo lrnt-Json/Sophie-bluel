@@ -20,6 +20,32 @@ fetch("http://localhost:5678/api/categories")
     createFilterButtons(categories);
   })
 
+
+// ajout des boutons de filtre //
+
+const filterContainer = document.querySelector(".filters");
+
+function createFilterButtons(categories) {
+
+    // Bouton "Tous" pour afficher tous les travaux
+
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tous";
+    allButton.addEventListener("click", () => displayWorks(works));
+    filterContainer.appendChild(allButton); 
+
+    // Boutons pour chaque catégorie
+
+    categories.forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category.name;
+        button.addEventListener("click", () => {
+            const filteredWorks = works.filter(work => work.categoryId === category.id);
+            displayWorks(filteredWorks);
+        });
+        filterContainer.appendChild(button);
+    });
+}
 //verification de la connexion //
 
 const token = localStorage.getItem("token");
@@ -38,6 +64,9 @@ if (token !=  null) {
         localStorage.removeItem("token");
         window.location.reload();
       });
+
+    // enlever les boutton filtres
+    document.querySelector(".filters").style.display = "none";
 
     // Affichage d'un button de modification
 
@@ -107,12 +136,15 @@ if (token !=  null) {
       });
 
       // Retour à la modale gallery edit quand on clique sur la flèche
-      document.querySelector('.back-arrow').addEventListener('click', function() {
+      document.querySelector('.back-arrow').addEventListener('click', function(event) {
+        event.preventDefault();
         document.querySelector('.gallery-edit').style.display = 'flex';
         document.querySelector('.gallery-add').style.display = 'none';
+        UploadImageReset()
       });
 
       // Gestion du formulaire d'ajout d'image
+
       const addImageForm = document.getElementById('add-image-form');
 
       addImageForm.addEventListener('submit', function(event) {
@@ -161,24 +193,8 @@ if (token !=  null) {
             works.push(newWork);
             displayWorks(works); // Met à jour la galerie principale
             displayModalImages(works); // Met à jour la galerie modale
-            // Réinitialise le formulaire
-            addImageForm.reset();
-            // Supprime l'aperçu de l'image
-            const preview = document.querySelector('.image-preview');
-            if (preview) {
-              preview.remove();
-            }
-          // Remet l'icône, le texte et le bouton
-          const existingIcon = imageUploadDiv.querySelector('.fa-image');
-          existingIcon.style.display = 'block';
-          const existingText = imageUploadDiv.querySelector('span');
-          existingText.style.display = 'block';
-          const existingButton = imageUploadDiv.querySelector('.image-url-button');
-          existingButton.style.display = 'block';
-          //ferme de la modale //
-          document.getElementById('modal-edit').style.display = 'none';
-          document.querySelector('.gallery-edit').style.display = 'flex';
-          document.querySelector('.gallery-add').style.display = 'none';
+            //ferme de la modale //
+            modalexit()
           })
           .catch(error => {
           console.error("Error adding image:", error);
@@ -187,12 +203,7 @@ if (token !=  null) {
 
         // Ferme la modale quand on clique sur la croix
         document.querySelector('.modal .close').addEventListener('click', function() {
-        document.getElementById('modal-edit').style.display = 'none';
-        
-
-        // Remet la modale d'ajout d'image à son état initial
-        document.querySelector('.gallery-edit').style.display = 'flex';
-        document.querySelector('.gallery-add').style.display = 'none';
+          modalexit()
         
       });
 
@@ -200,12 +211,7 @@ if (token !=  null) {
       window.addEventListener('click', function(event) {
         const modal = document.getElementById('modal-edit');
         if (event.target === modal) {
-          modal.style.display = 'none';
-          
-          // Remet la modale d'ajout d'image à son état initial
-          document.querySelector('.gallery-edit').style.display = 'flex';
-          document.querySelector('.gallery-add').style.display = 'none';
-
+          modalexit()
         }
       });
 
@@ -274,32 +280,6 @@ function displayWorks(works) {
     });
 }
 
-// ajout des boutons de filtre //
-
-const filterContainer = document.querySelector(".filters");
-
-function createFilterButtons(categories) {
-
-    // Bouton "Tous" pour afficher tous les travaux
-
-    const allButton = document.createElement("button");
-    allButton.textContent = "Tous";
-    allButton.addEventListener("click", () => displayWorks(works));
-    filterContainer.appendChild(allButton); 
-
-    // Boutons pour chaque catégorie
-
-    categories.forEach(category => {
-        const button = document.createElement("button");
-        button.textContent = category.name;
-        button.addEventListener("click", () => {
-            const filteredWorks = works.filter(work => work.categoryId === category.id);
-            displayWorks(filteredWorks);
-        });
-        filterContainer.appendChild(button);
-    });
-}
-
 // recupération du formulaire de connexion //
 
 const loginForm = document.querySelector(".login-form");
@@ -343,3 +323,41 @@ function connexion(data) {
     localStorage.setItem("token", data.token);
     window.location.href = "../index.html";
 }
+
+function modalexit (){
+
+  UploadImageReset()
+
+  // remet sur la fenetre modale par default
+  document.querySelector('.gallery-edit').style.display = 'flex';
+  document.querySelector('.gallery-add').style.display = 'none';
+
+  //ferme la modale
+  document.getElementById('modal-edit').style.display = 'none';
+  document.querySelector('.gallery-edit').style.display = 'flex';
+  document.querySelector('.gallery-add').style.display = 'none';
+
+};
+
+function UploadImageReset(){
+
+  // retire le preview de l'image
+
+  const preview = document.querySelector('.image-preview');
+  if (preview) {
+    preview.remove();
+  }
+
+  // Reinitailise le formulaire d'ajout d'image
+  
+  document.getElementById('add-image-form').reset();
+  const imageUploadDiv = document.querySelector('.image-upload');
+  const existingIcon = imageUploadDiv.querySelector('.fa-image');
+  existingIcon.style.display = 'block';
+  const existingText = imageUploadDiv.querySelector('span');
+  existingText.style.display = 'block';
+  const existingButton = imageUploadDiv.querySelector('.image-url-button');
+  existingButton.style.display = 'block';
+  
+  
+}; 

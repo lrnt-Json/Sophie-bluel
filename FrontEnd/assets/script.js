@@ -15,8 +15,7 @@ fetch("http://localhost:5678/api/categories")
   .then(response => response.json())
   .then(data => {
     categories = data;
-    if (filterContainer != null){
-    createFilterButtons(categories);}
+    createFilterButtons(categories);
   })
 
 
@@ -31,6 +30,7 @@ function createFilterButtons(categories) {
     const allButton = document.createElement("button");
     allButton.textContent = "Tous";
     allButton.addEventListener("click", () => displayWorks(works));
+    if (filterContainer == null) return;
     filterContainer.appendChild(allButton); 
 
     // Boutons pour chaque catégorie

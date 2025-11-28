@@ -8,7 +8,6 @@ fetch("http://localhost:5678/api/works")
   .then(data => {
     works = data;
     displayWorks(works);
-    console.log(works);
   })
 
 
@@ -16,8 +15,8 @@ fetch("http://localhost:5678/api/categories")
   .then(response => response.json())
   .then(data => {
     categories = data;
-    console.log(categories);
-    createFilterButtons(categories);
+    if (filterContainer != null){
+    createFilterButtons(categories);}
   })
 
 
@@ -49,10 +48,8 @@ function createFilterButtons(categories) {
 //verification de la connexion //
 
 const token = localStorage.getItem("token");
-console.log("Token:", token);
 
 if (token !=  null) {
-  console.log("User is logged in");
 
     // Modification du lien de connexion en "logout"
 
@@ -87,7 +84,6 @@ if (token !=  null) {
       modifierButton.addEventListener('click', function() {
         document.getElementById('modal-edit').style.display = 'flex';
         displayModalImages(works); // Affiche les images dans la modale
-        console.log("galleryImages:", works);
       });
 
       // change la modale pour l'ajout d'une photo quand on clique sur "ajouter une photo"
@@ -152,9 +148,6 @@ if (token !=  null) {
         const imageFile = document.getElementById('image-url').files[0];
         const title = document.getElementById('image-title').value;
         const categoryId = document.getElementById('image-category').value;
-        console.log("Image File:", imageFile);
-        console.log("Title:", title);
-        console.log("Category ID:", categoryId);
 
         // Envoie des données à l'API pour ajouter l'image
 
@@ -163,8 +156,6 @@ if (token !=  null) {
         formData.append('title', title );
         formData.append('category', parseInt(categoryId));
         // afficher le contenue du formdata
-
-        console.log(formData.values())
 
         fetch("http://localhost:5678/api/works", {
           method: "POST",
@@ -189,7 +180,6 @@ if (token !=  null) {
               "userId": work.userId
             }
 
-            console.log("Image added successfully:", newWork);
             works.push(newWork);
             displayWorks(works); // Met à jour la galerie principale
             displayModalImages(works); // Met à jour la galerie modale
@@ -244,10 +234,8 @@ function displayModalImages(works) {
             })
             .then(response => {
                 if (response.ok) {
-                    console.log(`Work with ID ${work.id} deleted`);
                     // Met à jour les tableaux works et l'affichage
                     works.splice(works.indexOf(work.id), 1);
-                    console.log("Updated works:", works);
                     displayWorks(works);
                     displayModalImages(works);
                 } else {
@@ -266,6 +254,7 @@ function displayModalImages(works) {
 
 const gallery = document.querySelector(".gallery");
 function displayWorks(works) {
+  if (gallery == null) return;
     gallery.innerHTML = "";
     works.forEach(work => {
         const figure = document.createElement("figure");
@@ -283,12 +272,11 @@ function displayWorks(works) {
 // recupération du formulaire de connexion //
 
 const loginForm = document.querySelector(".login-form");
+if (loginForm != null) {
 loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
     const email = document.getElementById("email").value; 
     const password = document.getElementById("password").value;
-    console.log("Email:", email);
-    console.log("Password:", password);
       fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -311,12 +299,11 @@ loginForm.addEventListener("submit", function(event) {
           }
           
       }).then(data => {
-            console.log("Login successful:", data);
             connexion(data);
           })
     }
 )
-
+}
 // fonction de connexion //
 
 function connexion(data) {
